@@ -42,7 +42,7 @@ sub args_for_show {
     my $self = shift;
     my $env  = shift;
 
-    return @{ $self->args };
+    return @{ $self->args || [] };
 }
 
 sub serve_path {
