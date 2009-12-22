@@ -5,7 +5,7 @@ use parent 'Plack::Component';
 use Plack::Util;
 use Template::Declare;
 
-use Plack::Util::Accessor qw(view args);
+use Plack::Util::Accessor qw(view args pass_request);
 
 sub new {
     my $self = shift->SUPER::new(@_);
@@ -41,6 +41,11 @@ sub call {
 sub args_for_show {
     my $self = shift;
     my $env  = shift;
+
+    if ($self->pass_request) {
+        require Plack::Request;
+        $env = Plack::Request->new($env);
+    }
 
     return ($env, @{ $self->args || [] });
 }
