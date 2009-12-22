@@ -7,6 +7,19 @@ use Template::Declare;
 
 use Plack::Util::Accessor qw(view args);
 
+sub new {
+    my $self = shift->SUPER::new(@_);
+    $self->init;
+    return $self;
+}
+
+sub init {
+    my $self = shift;
+    my $view = $self->view;
+    $view = [$view] if !ref($view);
+    Template::Declare->init(dispatch_to => $view);
+}
+
 sub should_handle {
     my ($self, $path) = @_;
     return Template::Declare->has_template($path);
