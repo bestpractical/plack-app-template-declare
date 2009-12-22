@@ -50,7 +50,7 @@ sub serve_path {
     my $env  = shift;
     my $path = shift;
 
-    my $body = Template::Declare->show_template($path, $self->args_for_show($env));
+    my $body = Template::Declare->show($path, $self->args_for_show($env));
 
     return [
         200,
